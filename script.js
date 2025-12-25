@@ -13,18 +13,6 @@ function startMusic(){
   window.addEventListener(e,startMusic,{once:true});
 });
 
-/* ICON RƠI */
-const iconLayer=document.querySelector(".icon-layer");
-const icons=["❄️","❄️","⭐","❤️","✨"];
-for(let i=0;i<140;i++){
-  const s=document.createElement("span");
-  s.textContent=icons[Math.floor(Math.random()*icons.length)];
-  s.style.left=Math.random()*100+"vw";
-  s.style.fontSize=16+Math.random()*20+"px";
-  s.style.animationDuration=5+Math.random()*6+"s";
-  iconLayer.appendChild(s);
-}
-
 /* TUYẾT */
 const snowLayer=document.querySelector(".snow-layer");
 for(let i=0;i<180;i++){
@@ -61,4 +49,5 @@ function createHeart(x, y) {
   // Cho biến mất cực nhanh để giải phóng bộ nhớ
   setTimeout(() => heart.remove(), 600);
 }
+
 
