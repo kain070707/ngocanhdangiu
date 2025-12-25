@@ -1,4 +1,4 @@
-/* RESET & CƠ BẢN */
+/* RESET & CƠ BẢN *//* RESET & CƠ BẢN */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-snap-type: y mandatory; }
 body {
@@ -99,22 +99,35 @@ body {
   90% { opacity: 1; }
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
-/* HỆ THỐNG TUYẾT NHẸ CHO ĐIỆN THOẠI */
+/* GIẢM TẢI CHO GPU ĐIỆN THOẠI */
 .snow-layer span {
   position: absolute;
   top: -50px;
   animation: fall linear infinite;
-  /* Giảm độ bóng đổ để nhẹ GPU điện thoại */
-  filter: drop-shadow(0 0 3px white); 
   user-select: none;
   z-index: 1;
+  /* Thay phát sáng bằng độ mờ nhẹ, nhìn vẫn ảo mà cực nhẹ */
+  opacity: 0.8; 
 }
 
 @keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-  15% { opacity: 1; }
-  /* Giảm bớt các phép biến đổi phức tạp */
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* Tối ưu ảnh xoay: dùng will-change để báo trước cho điện thoại chuẩn bị */
+.big-wrap .orn.big, .small {
+  will-change: transform;
+  border: 2px solid #fff; /* Giảm độ dày border */
+  box-shadow: none !important; /* Tắt hẳn bóng đổ */
+}
+
+/* Rút ngắn animation xoay cho đỡ lag */
+@keyframes swingBig {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
 }
 
 /* Làm cho ngôi sao và ảnh phát sáng huyền ảo hơn */
@@ -141,4 +154,5 @@ body {
   background-repeat: no-repeat;
   /* Thêm hiệu ứng glow cho trái tim nếu muốn */
   filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.8));
+}
 }
