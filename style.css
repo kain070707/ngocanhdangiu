@@ -134,25 +134,30 @@ body {
 .star { filter: drop-shadow(0 0 25px gold); }
 .orn { border: 3px solid #fff; box-shadow: 0 0 20px rgba(255,255,255,0.6), inset 0 0 10px rgba(255,255,255,0.5); }
 /* Hiệu ứng trái tim bay lên */
-@keyframes heartFly {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    /* Trái tim bay lên và hơi lệch trái/phải ngẫu nhiên */
-    transform: translate(-50%, -120px) scale(1.2) rotate(45deg);
-    opacity: 0;
-  }
+/* BẢN SIÊU NHẸ - DÙNG GPU ĐIỆN THOẠI */
+.snow-layer span {
+  position: absolute;
+  top: -50px;
+  user-select: none;
+  z-index: 1;
+  opacity: 0.7;
+  /* Mẹo quan trọng: translate3d giúp mượt hơn trên mobile */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: fall linear infinite;
 }
 
-.heart-click {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  background-size: contain;
-  background-repeat: no-repeat;
-  /* Thêm hiệu ứng glow cho trái tim nếu muốn */
-  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.8));
+@keyframes fall {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate3d(0, 110vh, 0); opacity: 0; }
 }
+
+/* Tắt mọi hiệu ứng làm nặng ảnh */
+.big-wrap .orn.big, .small {
+  box-shadow: none !important;
+  filter: none !important;
+  border: 1.5px solid #fff;
 }
+
