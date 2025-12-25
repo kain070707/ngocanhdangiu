@@ -3,19 +3,29 @@
 html { scroll-snap-type: y mandatory; }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(180deg, #020024, #060b44, #020024);
+  margin: 0;
+  min-height: 100vh;
+  /* Hiệu ứng màu Deep Deep: Xanh đen pha tím rượu vang */
+  background: linear-gradient(135deg, #020024 0%, #050520 25%, #1a052e 50%, #050520 75%, #020024 100%);
+  /* Tạo thêm một lớp phủ mờ ảo lấp lánh */
+  background-attachment: fixed;
   color: #fff;
   overflow-x: hidden;
+  position: relative;
 }
 
-.screen {
+/* Thêm hiệu ứng quầng sáng nhẹ ở giữa màn hình để làm nổi bật cây thông */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
   height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(63, 43, 150, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* TIÊU ĐỀ */
@@ -81,6 +91,9 @@ body {
   display: none; opacity: 0; margin-top: 24px; background: #fff; color: #333;
   padding: 36px; border-radius: 18px; max-width: 480px; transition: 1s;
   text-align: center; box-shadow: 0 0 30px rgba(255,255,255,0.4); z-index: 101;
+  border: 2px solid gold; /* Viền vàng sang chảnh */
+  background: rgba(255, 255, 255, 0.95); /* Trắng hơi trong suốt nhẹ */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /* Đổ bóng sâu để thư nổi lên hẳn */
 }
 .letter.show { display: block; opacity: 1; }
 
@@ -160,4 +173,5 @@ body {
   filter: none !important;
   border: 1.5px solid #fff;
 }
+
 
