@@ -1,0 +1,144 @@
+/* RESET & CƠ BẢN */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, #020024, #060b44, #020024);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.screen {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* TIÊU ĐỀ */
+.title { 
+  font-size: 2.6rem; 
+  animation: float 3s ease-in-out infinite; 
+  z-index: 10; 
+  text-shadow: 0 0 15px rgba(255,255,255,0.8); /* Chữ phát sáng */
+}
+@keyframes float { 50% { transform: translateY(-10px); } }
+
+/* CÂY THÔNG */
+.tree { position: relative; width: 320px; height: 500px; margin-top: 20px; }
+.star { 
+  color: gold; font-size: 42px; text-align: center; position: relative; z-index: 5;
+  filter: drop-shadow(0 0 20px yellow); /* Ngôi sao phát sáng mạnh */
+}
+.leaf {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle at top, #2ecc71, #0b6623);
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+.l1 { top: 60px; width: 160px; height: 90px; }
+.l2 { top: 120px; width: 210px; height: 110px; }
+.l3 { top: 200px; width: 260px; height: 130px; }
+.l4 { top: 300px; width: 300px; height: 150px; }
+.trunk {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 70px; height: 90px; background: #5a3825; border-radius: 10px;
+}
+
+/* ẢNH TRÊN CÂY (DỜI XUỐNG CÂN ĐỐI) */
+.big-wrap {
+  position: absolute; left: 50%; top: 230px; 
+  transform: translateX(-50%);
+  width: 130px; height: 130px; z-index: 20;
+}
+.big-wrap .orn.big {
+  width: 100%; height: 100%;
+  animation: swingBig 3s ease-in-out infinite;
+  display: block;
+}
+@keyframes swingBig { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+
+.orn { border-radius: 50%; border: 3px solid #fff; object-fit: cover; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+.small { position: absolute; width: 75px; height: 75px; z-index: 15; animation: swingSmall 3.5s ease-in-out infinite; }
+@keyframes swingSmall { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+.tl { top: 160px; left: 30px; }
+.tr { top: 160px; right: 30px; }
+.bl { top: 330px; left: 35px; }
+.br { top: 330px; right: 35px; }
+
+/* ===== HỘP QUÀ & LÁ THƯ ===== */
+.gift { 
+  font-size: 130px; cursor: pointer; transition: 0.5s; z-index: 100;
+  filter: drop-shadow(0 0 15px rgba(255,0,0,0.5));
+}
+.gift.hidden { opacity: 0; transform: scale(0); pointer-events: none; }
+
+.letter {
+  display: none; opacity: 0; margin-top: 24px; background: #fff; color: #333;
+  padding: 36px; border-radius: 18px; max-width: 480px; transition: 1s;
+  text-align: center; box-shadow: 0 0 30px rgba(255,255,255,0.4); z-index: 101;
+}
+.letter.show { display: block; opacity: 1; }
+
+/* ===== HỆ THỐNG TUYẾT & ICON PHÁT SÁNG CỰC NHIỀU ===== */
+.snow-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.snow-layer span {
+  position: absolute; top: -100px;
+  animation: fall linear infinite;
+  filter: drop-shadow(0 0 8px white); /* Tạo độ phát sáng cho tuyết */
+  user-select: none;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+/* HỆ THỐNG TUYẾT NHẸ CHO ĐIỆN THOẠI */
+.snow-layer span {
+  position: absolute;
+  top: -50px;
+  animation: fall linear infinite;
+  /* Giảm độ bóng đổ để nhẹ GPU điện thoại */
+  filter: drop-shadow(0 0 3px white); 
+  user-select: none;
+  z-index: 1;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  /* Giảm bớt các phép biến đổi phức tạp */
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Làm cho ngôi sao và ảnh phát sáng huyền ảo hơn */
+.star { filter: drop-shadow(0 0 25px gold); }
+.orn { border: 3px solid #fff; box-shadow: 0 0 20px rgba(255,255,255,0.6), inset 0 0 10px rgba(255,255,255,0.5); }
+/* Hiệu ứng trái tim bay lên */
+@keyframes heartFly {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    /* Trái tim bay lên và hơi lệch trái/phải ngẫu nhiên */
+    transform: translate(-50%, -120px) scale(1.2) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.heart-click {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* Thêm hiệu ứng glow cho trái tim nếu muốn */
+  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.8));
+}
