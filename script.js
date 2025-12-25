@@ -42,45 +42,26 @@ function openGift(){
   document.querySelector(".gift").style.display="none";
   document.getElementById("letter").classList.add("show");
 }
-// Hàm tạo trái tim tại một vị trí (x, y)
 function createHeart(x, y) {
+  const now = Date.now();
+  if (now - lastHeartTime < 50) return; // Chỉ tạo tim nếu cách nhau ít nhất 50ms
+  lastHeartTime = now;
+
   const heart = document.createElement('div');
   heart.className = 'heart-click';
-  
-  // Đường dẫn ảnh của bạn
-  heart.style.backgroundImage = "url('heart.png')"; 
-  
-  // Vị trí xuất hiện
+  heart.style.backgroundImage = "url('heart.png')";
   heart.style.left = x + 'px';
   heart.style.top = y + 'px';
   
-  // Random một chút kích thước để nhìn tự nhiên hơn
-  const size = Math.floor(Math.random() * 20) + 20; // Từ 20px - 40px
-  heart.style.width = size + 'px';
-  heart.style.height = size + 'px';
+  // Cố định kích thước nhỏ cho nhẹ
+  heart.style.width = '30px';
+  heart.style.height = '30px';
 
   document.body.appendChild(heart);
-  
-  // Xóa sau khi bay xong
-  setTimeout(() => {
-    heart.remove();
-  }, 3000);
+  setTimeout(() => heart.remove(), 800); // Biến mất nhanh hơn (1s -> 0.8s)
 }
 
-// 1. Hiệu ứng khi Bấm (Click/Touch)
-document.addEventListener('mousedown', (e) => createHeart(e.clientX, e.clientY));
-document.addEventListener('touchstart', (e) => {
-  createHeart(e.touches[0].clientX, e.touches[0].clientY);
-});
-
-// 2. Hiệu ứng khi Kéo (Move/TouchMove) - Tạo vệt dài
-document.addEventListener('mousemove', (e) => {
-  if (e.buttons === 1) { // Chỉ tạo khi đang nhấn chuột trái
-    createHeart(e.clientX, e.clientY);
-  }
-});
-
+// Giữ các sự kiện touch như cũ nhưng dùng hàm createHeart đã tối ưu này
 document.addEventListener('touchmove', (e) => {
-  // Tạo trái tim tại vị trí ngón tay đang di chuyển
   createHeart(e.touches[0].clientX, e.touches[0].clientY);
 }, { passive: true });
