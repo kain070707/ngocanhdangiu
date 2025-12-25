@@ -42,9 +42,11 @@ function openGift(){
   document.querySelector(".gift").style.display="none";
   document.getElementById("letter").classList.add("show");
 }
+let lastHeartTime = 0;
 function createHeart(x, y) {
   const now = Date.now();
-  if (now - lastHeartTime < 50) return; // Chỉ tạo tim nếu cách nhau ít nhất 50ms
+  // Tăng lên 100ms: Nghĩa là 1 giây chỉ tạo tối đa 10 trái tim (rất nhẹ)
+  if (now - lastHeartTime < 100) return; 
   lastHeartTime = now;
 
   const heart = document.createElement('div');
@@ -52,16 +54,11 @@ function createHeart(x, y) {
   heart.style.backgroundImage = "url('heart.png')";
   heart.style.left = x + 'px';
   heart.style.top = y + 'px';
-  
-  // Cố định kích thước nhỏ cho nhẹ
-  heart.style.width = '30px';
-  heart.style.height = '30px';
+  heart.style.width = '25px';
+  heart.style.height = '25px';
 
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 800); // Biến mất nhanh hơn (1s -> 0.8s)
+  // Cho biến mất cực nhanh để giải phóng bộ nhớ
+  setTimeout(() => heart.remove(), 600);
 }
 
-// Giữ các sự kiện touch như cũ nhưng dùng hàm createHeart đã tối ưu này
-document.addEventListener('touchmove', (e) => {
-  createHeart(e.touches[0].clientX, e.touches[0].clientY);
-}, { passive: true });
